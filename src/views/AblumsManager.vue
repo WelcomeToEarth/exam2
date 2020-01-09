@@ -32,17 +32,17 @@
         <div v-show="editDialog">
             <el-form ref="form" :model="editForm" label-width="80px">
             <el-form-item label="专辑名称">
-                <el-input v-model="editForm.name"></el-input>
+                <el-input v-model="editForm.album_name"></el-input>
             </el-form-item>
             <el-form-item label="价格">
                 <el-input v-model="editForm.price"></el-input>
             </el-form-item>
             <el-form-item label="作者">
-                <el-input v-model="editForm.singer"></el-input>
+                <el-input v-model="editForm.singers"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">修改完毕</el-button>
-                <el-button>取消</el-button>
+                <el-button @click="editCancel">取消</el-button>
             </el-form-item>
             </el-form>
         </div>
@@ -53,7 +53,7 @@
                 <el-input v-model="ablum.album_id" placeholder="请输入专辑ID"></el-input>
             </el-form-item>
             <el-form-item label="专辑名称">
-                <el-input v-model="ablum.name" placeholder="请输入准基名称"></el-input>
+                <el-input v-model="ablum.album_name" placeholder="请输入准基名称"></el-input>
             </el-form-item>
             <el-form-item label="专辑价格">
                 <el-input v-model.number="ablum.price"  placeholder="请输入价格"></el-input>
@@ -92,7 +92,7 @@
                     width="300">
                 <template slot-scope="ablum">
                     <el-button @click="showDetail(ablum.row)" type="primary" size="small">详情</el-button>
-                    <el-button @click="editDialogVisible=true" type="info" size="small">编辑</el-button>
+                    <el-button @click="editAblums(ablum.row)" type="info" size="small">编辑</el-button>
                     <el-button @click="appendSinger(ablum.row)" type="warn" size="small">追加</el-button>
                     <el-button @click="deleteDialogVisible=true" type="danger" size="small">删除</el-button>
                 </template>
@@ -222,6 +222,14 @@
             detailDialogClose(){
                 this.detail = {}
                 this.detailDialog = false
+            },
+            editAblums(detail){
+                this.editDialog= true
+                this.editForm = detail
+            },
+            editCancel(){
+                this.editForm = {}
+                this.editDialog = false
             }
 
         }
